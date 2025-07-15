@@ -1,3 +1,53 @@
+<?php
+
+
+// require '../../App/config.inc.php';
+
+require '../../senac/Session/Login.php';
+
+Login::RequireLogout();
+
+
+$erro = '';
+$succes ='';
+
+if(isset($_POST['cadastrar'])){
+
+
+    if(!empty($_POST['telefone']) || !empty($_POST['senha'])){
+
+        $telefone  = $_POST['telefone'];
+        $senha  = $_POST['senha'];
+       
+
+                $cliente =  new Cliente();
+
+                $cliente->telefone = $telefone;
+                $cliente->senha = password_hash($senha, PASSWORD_DEFAULT);
+                $cliente->id_perfil = "cli";
+
+
+
+                $cliente->cadastrarCliente();
+
+                if($cliente){
+                    $succes='Cadastro realizado com successo';
+                }else{
+                    $erro='Erro ao cadastrar';
+                }
+    };
+}
+
+
+
+
+?> 
+
+
+
+
+
+
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
@@ -14,11 +64,10 @@
     <div class="cadastro-body">
       <h2>Cadastro</h2>
       <form>
-        <input type="text" placeholder="Nome">
         <input type="tel" placeholder="Celular">
         <input type="password" placeholder="Senha">
         <input type="password" placeholder="Confirmar Senha">
-        <a href="buyathome.html" class="botoes-acesso">Cadastrar</a>
+        <a href="../Views/buyathome.php" class="botoes-acesso">Cadastrar</a>
       </form>
       <div class="tenho-conta">
         <a href="login.html">Já tenho uma conta</a>

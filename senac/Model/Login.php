@@ -1,0 +1,93 @@
+<?php
+
+
+require_once(__DIR__ . '/../Database/Database.php');
+
+
+
+
+class User{
+
+
+    public int $id_usuario;
+    public int $telefone;
+    public string $senha;
+    public string $id_perfil;
+   
+
+
+
+  
+    public function cadastrarUser(){
+        $db = new Database('usuarios');
+
+        $result = $db->insert(
+            [
+                'usuario'=> $this->id_usuario,
+                'telefone'=> $this->telefone,
+                'senha' => $this->senha,
+                'id_perfil' => $this->id_perfil,
+            ]
+            );
+        return $result;
+    }
+
+
+    
+    // Função que lista dados da table de clientes do banco de dados
+//    public static function getUsuarioByTelefone($telefone) {
+//     $db = new Database('usuarios');
+//     $result = $db->select("telefone = '$telefone'");
+
+//      var_dump($result);
+//     $obj = $result->fetchObject(self::class);
+//     var_dump($obj);
+//     return $result->fetchObject(self::class);
+// }
+
+public static function getUsuarioByTelefone($telefone) {
+    $db = new Database('usuarios');
+    $result = $db->selectWithBinds("telefone = :telefone", [':telefone' => $telefone]);
+    return $result->fetchObject(self::class);
+}
+
+
+
+
+    public static function getUsuarioById($id_usuario) {
+        $db = new Database('usuarios');
+        $result = $db->select("usuario = '$id_usuario'");
+        return $result->fetchObject(self::class); 
+    }
+
+    public static function getUser($where=null, $order =null, $limit = null){
+        return (new Database('user'))->select($where,$order,$limit)
+                                        ->fetchAll(PDO::FETCH_CLASS,self::class);
+
+    }
+
+    // Função que retorna uma instâcia de usuario com base no email
+
+
+    // QUANDO EU QUERO RETORNAR UM OBJETO "CLASSE" PARA INSTANCIAR 
+    // public static function getUsuarioPorEmail($where=null, $order =null, $limit = null){
+
+    //     return (new Database('cliente'))->select('email = "'. $where .'"')->fetchObject(self::class);
+
+    // }
+
+
+
+    public function updateUser(){
+        return (new Database('usuarios'))->update('usuario = '.$this->id_usuario,[
+                                            'usuario'=> $this->id_usuario,
+                                            'telefone' => $this->telefone,
+                                            'senha' => $this->senha,
+                                            'id_perfil' => $this->id_perfil,
+        ]);
+        
+    }
+
+}
+
+

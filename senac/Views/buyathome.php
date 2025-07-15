@@ -1,3 +1,7 @@
+require '../../senac/Session/Login.php';
+
+
+
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>

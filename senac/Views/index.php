@@ -15,8 +15,8 @@
     <div class="index-body">
       <h2>Login</h2>
       <form>
-        <a href="login.html" class="botoes-acesso">Entrar</a>
-        <a href="cadastro.html" class="botoes-acesso">Cadastrar</a>
+        <a href="../Views/login.php" class="botoes-acesso">Entrar</a>
+        <a href="../Views/cadastro.php" class="botoes-acesso">Cadastrar</a>
       </form>
      
 

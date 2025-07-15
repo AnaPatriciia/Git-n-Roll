@@ -1,0 +1,152 @@
+  * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: Arial, Helvetica, sans-serif;
+    }
+
+    html, body {
+      height: 100%;
+      background: #eef0f4;
+    }
+
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .index {
+      width: 100vw;
+      max-width: 400px;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      background: #fff;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .index-header {
+      background: white url("padrao.svg") center/cover;
+      height: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      position: absolute;
+      width: 100%;
+      top: 0;
+      left: 0;
+      z-index: 2;
+      animation: hideHeader 1.0s forwards;
+    }
+
+    .index-header img {
+      width: 150px;
+      height: 150px;
+    }
+
+    .index-body {
+      background: black;
+      border-top-left-radius: 32px;
+      position: absolute;
+      bottom: -100%;
+      width: 100%;
+      height: calc(100% - 300px); /* deixa espaço pro header */
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 48px 24px;
+      z-index: 1;
+      animation: slideUp 1.0s forwards;
+      animation-delay: 1.0s;
+    }
+
+    .index-body h2 {
+      font-size: 22px;
+      text-align: center;
+      margin-bottom: 24px;
+      color: white;
+    }
+
+    .index-body button {
+      width: 100%;
+      padding: 12px;
+      border: none;
+      border-radius: 8px;
+      background: white;
+      color: black;
+      font-weight: 600;
+      cursor: pointer;
+      transition: 0.25s;
+      margin-bottom: 10px;
+    
+    }
+
+    .botoes-acesso {
+      display: block;
+      width: 100%;
+      padding: 12px;
+      border: none;
+      border-radius: 8px;
+      background: white;
+      color: black;
+      font-weight: 600;
+      text-align: center;
+      text-decoration: none;
+      transition: 0.25s;
+      margin-bottom: 10px;
+    }
+
+    .botoes-acesso:hover {
+      background-color: orangered;
+      filter: brightness(1.1);
+    }
+    
+    .redes-sociais {
+      display: flex;
+      gap: 20px;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+    }
+
+    .redes-sociais a {
+      margin-top: 200x;
+      font-size: 24px;
+      color: white;
+      text-decoration: none;
+      transition: color 0.3s;
+      margin-top: 80px;
+    }
+
+    .redes-sociais a:hover {
+      color: orangered;
+    }
+
+    .acesso-corporativo {
+      padding: 16px;
+      text-align: center;
+      font-size: 13px;
+      color: white;
+      margin-top: 30px;
+    }
+
+    .acesso-corporativo a {
+      color: white;
+      text-decoration: none;
+      font-weight: 600;
+    }
+
+    /* Animações */
+    @keyframes slideUp {
+      to {
+        bottom: 0;
+      }
+    }
+
+    @keyframes hideHeader {
+      to {
+        height: 300px;
+      }
+    }

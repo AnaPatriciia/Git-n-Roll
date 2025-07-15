@@ -1,0 +1,368 @@
+body {
+  margin: 0;
+  font-family: 'Segoe UI', sans-serif;
+  background: black;
+  color: #333;
+}
+
+.container {
+  max-width: 400px;
+  margin: 20px auto;
+  background: white;
+  padding: 20px;
+  border-radius: 16px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+
+h1 {
+  color: #fe7604;
+  text-align: center;
+}
+
+.card h2 {
+  margin: 0 0 10px;
+  color: #111;
+}
+
+.days {
+  display: flex;
+  justify-content: space-between;
+  margin: 15px 0;
+}
+
+.day {
+  background: #f2f2f2;
+  padding: 10px 8px;
+  border-radius: 8px;
+  text-align: center;
+  font-weight: bold;
+  font-size: 12px;
+  color: #555;
+  flex: 1;
+  margin: 0 2px;
+}
+
+.day.active {
+  background: #fe7604;
+  color: white;
+}
+
+.weeks {
+  display: flex;
+  justify-content: space-around;
+  font-size: 13px;
+  margin-bottom: 15px;
+  color: #444;
+}
+
+.timer {
+  background: #ffe4b3;
+  text-align: center;
+  padding: 10px;
+  border-radius: 10px;
+  color: #a66300;
+  font-weight: bold;
+}
+
+.campo-oval {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-family: sans-serif;
+  margin-top: 40px; /* espaçamento em relação à div anterior */
+  margin-bottom: 40px;
+}
+
+.campo-oval label {
+  margin-bottom: 10px; /* espaço entre o label e o input */
+  font-size: 16px;
+  color: #333;
+}
+
+.campo-oval input {
+  border: 1px solid #ccc;
+  padding: 12px 20px;
+  border-radius: 999px;
+  font-size: 16px;
+  outline: none;
+  appearance: none;
+  -moz-appearance: textfield; /* remove setas no Firefox */
+  width: 200px;
+  text-align: center;
+}
+
+.campo-oval input::-webkit-outer-spin-button,
+.campo-oval input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.moeda {
+  font-size: 20px;
+  background: #f9f9f9;
+  padding: 10px;
+  border-radius: 12px;
+  display: inline-block;
+  margin-top: 5px;
+}
+
+.sobre {
+  border-top: 1px solid #ddd;
+  padding-top: 15px;
+}
+
+.item {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  margin: 15px 0;
+}
+
+.icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  background-color: #fe7604;
+  border-radius: 8px;
+  color: white;
+  font-size: 20px;
+}
+
+
+/* Estilo para ícones com fundo quadrado e cantos arredondados */
+.icon, .icon-checkin {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 40px;
+      height: 40px;
+      background-color: #fe7604;
+      border-radius: 8px;
+      color: white;
+      font-size: 20px;
+      flex-shrink: 0;
+    }
+
+    /* Estilo para alinhar ícone e título lado a lado */
+    .checkin-header {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 10px;
+    }
+
+.catalogo-promocoes {
+  display: flex;
+  gap: 16px;
+  margin: 30px 0;
+  overflow-x: auto;
+  padding: 10px 5px;
+  justify-content: center;
+}
+
+.promo-card {
+  flex: 0 0 140px;
+  height: 140px;
+  background-color: #f2f2f2;
+  border-radius: 16px;
+  text-align: center;
+  text-decoration: none;
+  color: #333;
+  padding: 20px 10px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.2s;
+}
+
+.promo-card:hover {
+  transform: scale(1.05);
+}
+
+.promo-card i {
+  font-size: 28px;
+  margin-bottom: 10px;
+  color: #00b779;
+}
+
+.promo-card span {
+  font-size: 14px;
+  font-weight: bold;
+}
+
+
+    .icon, .icon-checkin {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 40px;
+      height: 40px;
+      background-color: #fe7604;
+      border-radius: 8px;
+      color: white;
+      font-size: 20px;
+      flex-shrink: 0;
+    }
+
+    .checkin-header {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 10px;
+    }
+
+    .card {
+      position: relative;
+    }
+
+    .coin-counter {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      background: #fe7604;
+      color: white;
+      font-weight: bold;
+      padding: 8px 12px;
+      border-radius: 20px;
+      font-size: 14px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    }
+
+    .day {
+      background: black;
+      padding: 10px 8px;
+      border-radius: 8px;
+      text-align: center;
+      font-weight: bold;
+      font-size: 12px;
+      color: white;
+      flex: 1;
+      margin: 0 2px;
+      cursor: pointer;
+      transition: background-color 0.3s, color 0.3s;
+    }
+
+    .days {
+      display: flex;
+      justify-content: space-between;
+      margin: 15px 0;
+    }
+
+    .day.active {
+      background: #fe7604;
+      color: white;
+    }
+
+    .catalogo-promocoes {
+      display: flex;
+      gap: 16px;
+      margin: 30px 0;
+      overflow-x: auto;
+      padding: 10px 5px;
+      justify-content: center;
+    }
+
+    .promo-card {
+      flex: 0 0 140px;
+      height: 140px;
+      background-color: #f2f2f2;
+      border-radius: 16px;
+      text-align: center;
+      text-decoration: none;
+      color: #333;
+      padding: 20px 10px;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      transition: transform 0.2s;
+    }
+
+    .promo-card:hover {
+      transform: scale(1.05);
+    }
+
+    .promo-card i {
+      font-size: 28px;
+      margin-bottom: 10px;
+      color: #fe7604;
+    }
+
+    .promo-card span {
+      font-size: 14px;
+      font-weight: bold;
+    }
+
+
+.home-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: relative;
+  padding: 16px;
+}
+
+.left-space {
+  width: 40px; /* espaço equivalente ao tamanho do botão à direita */
+}
+
+.home-header .logo {
+  width: 120px;
+  height: auto;
+  position: absolute;
+  left: 50%;
+  margin-top: 60px;
+  transform: translateX(-50%);
+}
+
+.mini-menu {
+  position: relative;
+}
+
+.menu-toggle {
+  background: transparent;
+  border: none;
+  font-size: 20px;
+  cursor: pointer;
+  color: #333;
+}
+
+.menu-opcoes {
+  list-style: none;
+  margin-top: 8px;
+  padding: 8px 0;
+  background: #fff;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  display: none;
+  position: absolute;
+  top: 28px;
+  right: 0;
+  min-width: 180px;
+  z-index: 10;
+}
+
+.menu-opcoes li {
+  padding: 8px 16px;
+}
+
+.menu-opcoes li a {
+  color: #333;
+  text-decoration: none;
+  display: block;
+  font-size: 14px;
+}
+
+.menu-opcoes li:hover {
+  background-color: #f5f5f5;
+}
+
+.titulo-home{
+  padding: 50px;
+}

@@ -1,0 +1,40 @@
+.catalogo-a4-container {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    padding: 10px 16px;
+    box-sizing: border-box;
+  }
+
+  .catalogo-a4-img {
+    width: 100%;
+    max-width: 100%;
+    height: auto;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+  }
+
+  .btn-voltar-promocoes-container {
+    display: flex;
+    justify-content: center;
+    margin: 20px 0;
+  }
+
+  .btn-voltar-promocoes {
+    background-color: #00b779;
+    color: white;
+    text-decoration: none;
+    padding: 12px 24px;
+    border-radius: 30px;
+    font-size: 15px;
+    font-weight: 500;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+  }
+
+  .btn-voltar-promocoes:hover {
+    background-color: #009a63;
+    transform: translateY(-2px);
+  }

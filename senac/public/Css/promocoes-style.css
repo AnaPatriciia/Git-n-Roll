@@ -1,0 +1,93 @@
+
+
+  .promocoes-container {
+    padding: 20px;
+    background-color: white;
+    color: rgb(31, 30, 28);
+    font-family: 'Segoe UI', sans-serif;
+  }
+
+  .promocoes-titulo {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+
+  .promocoes-card {
+    display: flex;
+    align-items: center;
+    border-radius: 16px;
+    padding: 10px;
+    margin-bottom: 15px;
+    padding: 20px 15px; 
+    min-height: 90px;   
+    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+    transition: transform 0.2s;
+  }
+
+  .promocoes-card-1 { background-color: #fe7604; }
+  .promocoes-card-2 { background-color: orange; }
+  .promocoes-card-3 { background-color: rgb(231, 131, 44); }
+  .promocoes-card-4 { background-color: #f9a33b; }
+
+  .promocoes-card:hover {
+    transform: scale(1.02);
+  }
+
+  .promocoes-img {
+    width: 60px;
+    height: 60px;
+    border-radius: 12px;
+    object-fit: cover;
+    margin-right: 15px;
+  }
+
+  .promocoes-info {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  .promocoes-nome {
+    margin: 0;
+    font-size: 16px;
+  }
+
+  .promocoes-descricao {
+    margin: 4px 0 0;
+    font-size: 13px;
+    opacity: 0.9;
+  }
+
+ .voltar-container {
+    display: flex;
+    justify-content: center; 
+    align-items: center;     
+    padding: 20px;
+    text-align: center;
+  }
+
+  .voltar-btn {
+    background-color: black;
+    color: white;
+    border: none;
+    padding: 12px 24px;
+    border-radius: 30px;
+    font-size: 15px;
+    font-weight: 500;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center; 
+    gap: 8px;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+  }
+
+  .voltar-btn:hover {
+    background-color: #fe7604;
+    transform: translateY(-2px);
+  }
+.promocoes-link-card {
+  text-decoration: none;
+  color: inherit;
+  display: block;
+}

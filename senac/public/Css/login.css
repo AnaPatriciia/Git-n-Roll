@@ -1,0 +1,137 @@
+ * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: Arial, Helvetica, sans-serif;
+    }
+
+    html, body-login {
+      height: 100%;
+      background: #eef0f4;
+    }
+
+    body-login {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .login {
+      width: 100vw;
+      max-width: 400px;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      background: #fff;
+    }
+
+    .login-header {
+      background: white url("padrao.svg") center/cover;
+      height: 300px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .login-header img {
+      width: 150px;
+      height: 150px;
+    }
+
+    .login-body {
+      background: black;
+      border-top-left-radius: 32px;
+      flex-grow: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center; 
+      padding: 48px 24px; 
+    }
+
+    .login-body h2 {
+      font-size: 22px;
+      text-align: center;
+      margin-bottom: 24px;
+      color: white;
+    }
+
+    .login-body input {
+      width: 100%;
+      padding: 12px;
+      border: 1px solid #eee;
+      border-radius: 8px;
+      font-size: 14px;
+      background: #fafafa;
+      margin-bottom: 18px;
+    }
+
+    .login-body button {
+      width: 100%;
+      padding: 12px;
+      border: none;
+      border-radius: 8px;
+      background: white;
+      color: black;
+      font-weight: 600;
+      cursor: pointer;
+      transition: 0.25s;
+    }
+
+    .login-body button:hover {
+      filter: brightness(1.1);
+    }
+
+     .botoes-acesso {
+      display: block;
+      width: 100%;
+      padding: 12px;
+      border: none;
+      border-radius: 8px;
+      background: white;
+      color: black;
+      font-weight: 600;
+      text-align: center;
+      text-decoration: none;
+      transition: 0.25s;
+      margin-bottom: 10px;
+    }
+
+    .botoes-acesso:hover {
+      background-color: orangered;
+      filter: brightness(1.1);
+    }
+
+    .login-footer {
+      padding: 16px;
+      text-align: center;
+      font-size: 13px;
+      color: black;
+    }
+
+    .login-footer a {
+      color: black;
+      text-decoration: none;
+      font-weight: 600;
+    }
+
+    .esqueci-senha {
+      padding: 16px;
+      text-align: center;
+      font-size: 13px;
+      color: white;
+    }
+
+    .login-body img{
+        width: 230px;
+        height: 200px;
+        display: block;
+        margin: 0 auto 24px auto; 
+        object-fit: contain; 
+    }
+
+
+    .esqueci-senha a {
+      color: white;
+      text-decoration: none;
+      font-weight: 600;
+    }

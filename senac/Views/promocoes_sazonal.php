@@ -1,3 +1,11 @@
+<?php
+require_once __DIR__ . '/../Model/Promocoes.php';
+;
+
+$dados_produto = new Promocoes();
+$produto_banco = $dados_produto->buscar();
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>

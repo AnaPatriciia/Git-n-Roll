@@ -1,0 +1,71 @@
+
+
+
+
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Resgatar Pontos</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+  <link rel="stylesheet" href="../public/Css/resgatar-moedas.css">
+</head>
+<body>
+  <div class="resgate-container">
+    <div class="resgate-header">
+      <h2><i class="fa-solid fa-gift"></i> Resgatar Pontos</h2>
+      <div class="moedas"><i class="fa-solid fa-coins"></i> <span id="moeda-count">120</span> moedas</div>
+    </div>
+
+    <button class="resgatar-btn" id="btn-resgatar"><i class="fa-solid fa-arrow-rotate-right"></i> Resgatar moedas</button>
+
+    <div class="cupons">
+      <div class="cupom" data-requisito="50">
+        <i class="fa-solid fa-ticket"></i>
+        <h3>5% OFF</h3>
+        <span>Requer 50 moedas</span>
+      </div>
+      <div class="cupom" data-requisito="100">
+        <i class="fa-solid fa-ticket"></i>
+        <h3>10% OFF</h3>
+        <span>Requer 100 moedas</span>
+      </div>
+      <div class="cupom" data-requisito="150">
+        <i class="fa-solid fa-ticket"></i>
+        <h3>15% OFF</h3>
+        <span>Requer 150 moedas</span>
+      </div>
+    </div>
+  </div>
+
+  
+
+  <script>
+    const moedas = 120; // Exemplo: valor acumulado
+    const btnResgatar = document.getElementById('btn-resgatar');
+    const cupons = document.querySelectorAll('.cupom');
+
+    btnResgatar.addEventListener('click', () => {
+      cupons.forEach(cupom => {
+        const necessario = parseInt(cupom.dataset.requisito);
+        if (moedas >= necessario) {
+          cupom.classList.add('desbloqueado');
+        }
+      });
+    });
+
+    cupons.forEach(cupom => {
+      cupom.addEventListener('click', () => {
+        if (cupom.classList.contains('desbloqueado')) {
+          const valor = cupom.querySelector('h3').innerText;
+          alert(`✅ Cupom ${valor} resgatado com sucesso!`);
+        }
+      });
+    });
+
+    // Atualiza a contagem
+    document.getElementById('moeda-count').innerText = moedas;
+  </script>
+</body>
+</html>

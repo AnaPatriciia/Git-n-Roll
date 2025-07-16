@@ -91,7 +91,7 @@ if (isset($_POST['cadastrar'])) {
         <button name="cadastrar" class="botoes-acesso">Cadastrar</button>
       </form>
       <div class="tenho-conta">
-        <a href="login.html">Já tenho uma conta</a>
+        <a href="login.php">Já tenho uma conta</a>
       </div>
     </div>
     <div class="cadastro-footer">

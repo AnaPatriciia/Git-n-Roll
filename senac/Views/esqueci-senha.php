@@ -19,7 +19,7 @@
         <a href="login.html" class="botoes-acesso">Enviar link de recuperação</a>
       </form>
       <div class="voltar-login">
-        <a href="login.html">Voltar para o login</a>
+        <a href="login.php">Voltar para o login</a>
       </div>
     </div>
     <div class="reset-footer">

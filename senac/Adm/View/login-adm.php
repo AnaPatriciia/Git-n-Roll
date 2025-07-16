@@ -1,8 +1,5 @@
 <?php
 
-
-
-
 require_once '../../Model/Login.php';
 require_once '../../Model/Cliente.php';
 require_once '../..//Model/Adm.php';
@@ -11,13 +8,15 @@ require_once '../..//Model/Adm.php';
 require '../../Session/Login.php';
 
 
+
 session_start();
 
 $erro = '';
 $succes = '';
 
-
-
+echo "<pre>";
+var_dump($_POST);
+echo "</pre>";
 
 if (isset($_POST['logar'])) {
 

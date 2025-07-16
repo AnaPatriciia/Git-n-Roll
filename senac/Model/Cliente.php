@@ -11,22 +11,38 @@ class Cliente{
     public string $id_perfil;
    
 
-    public function cadastrarCliente(){
+    // public function cadastrarCliente(){
 
 
-        $db = new Database('usuarios');
-        $res_id = $db->insert_LastId(
-            [
+    //     $db = new Database('usuarios');
+    //     $res_id = $db->insert_LastId(
+    //         [
                 
-                'telefone' => $this->telefone,
-                'senha' => $this->senha,
-                'id_perfil' => $this->id_perfil
-            ]
-        );
+    //             'telefone' => $this->telefone,
+    //             'senha' => $this->senha,
+    //             'id_perfil' => $this->id_perfil
+    //         ]
+    //     );
                
-        return $res_id;
-    }
+    //     return $res_id;
+    // }
 
+public function cadastrarCliente() {
+
+    $db = new Database('usuarios');
+
+    // Gera o hash seguro da senha
+    $senhaHash = password_hash($this->senha, PASSWORD_DEFAULT);
+
+    // Insere no banco com a senha hasheada
+    $res_id = $db->insert_LastId([
+        'telefone'   => $this->telefone,
+        'senha'      => $senhaHash,
+        'id_perfil'  => $this->id_perfil
+    ]);
+
+    return $res_id;
+}
 
 
     public static function getClienteByUsuarioId($id_usuario) {

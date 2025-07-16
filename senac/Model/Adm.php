@@ -6,6 +6,7 @@ require_once 'Cliente.php';
 require_once 'Login.php';
 
 
+
 class Adm{
 
     public int $id_administrador;

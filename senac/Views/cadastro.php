@@ -14,29 +14,55 @@ Login::RequireLogout();
 $erro = '';
 $succes ='';
 
-if(isset($_POST['cadastrar'])){
+// if(isset($_POST['cadastrar'])){
 
 
-    if(!empty($_POST['telefone']) || !empty($_POST['senha'])){
+//     if(!empty($_POST['telefone']) || !empty($_POST['senha'])){
 
-        $telefone  = $_POST['telefone'];
-        $senha  = $_POST['senha'];
-                $cliente =  new Cliente();
+//         $telefone  = $_POST['telefone'];
+//         $senha  = $_POST['senha'];
+//                 $cliente =  new Cliente();
 
-                $cliente->telefone = $telefone;
-                $cliente->senha = $senha;
-                $cliente->id_perfil = "cli";
+//                 $cliente->telefone = $telefone;
+//                 $cliente->senha = $senha;
+//                 $cliente->id_perfil = "cli";
 
 
 
-                $cliente->cadastrarCliente();
+//                 $cliente->cadastrarCliente();
 
-                if($cliente){
-                    $succes='Cadastro realizado com successo';
-                }else{
-                    $erro='Erro ao cadastrar';
-                }
-    };
+//                 if($cliente){
+//                     $succes='Cadastro realizado com successo';
+//                 }else{
+//                     $erro='Erro ao cadastrar';
+//                 }
+//     };
+// }
+
+if (isset($_POST['cadastrar'])) {
+
+    if (!empty($_POST['telefone']) && !empty($_POST['senha'])) {
+
+        $telefone = $_POST['telefone'];
+        $senha    = $_POST['senha'];
+
+        $cliente = new Cliente();
+        $cliente->telefone   = $telefone;
+        $cliente->senha      = $senha;
+        $cliente->id_perfil  = "cli";
+
+        // Chama o método que já faz o hash da senha
+        $result = $cliente->cadastrarCliente();
+
+        if ($result) {
+            $succes = 'Cadastro realizado com sucesso';
+        } else {
+            $erro = 'Erro ao cadastrar';
+        }
+
+    } else {
+        $erro = 'Preencha todos os campos';
+    }
 }
 
 

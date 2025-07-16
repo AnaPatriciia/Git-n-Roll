@@ -3,6 +3,8 @@ require_once '../../Database/Database.php';
 require_once '../../Model/Login.php';
 require_once '../../Model/Cliente.php';
 require_once '../../Model/Adm.php';
+require_once '../../Session/Login.php';
+
 
 ?>
 

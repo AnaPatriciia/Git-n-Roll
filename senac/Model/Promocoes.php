@@ -47,4 +47,15 @@ class Promocoes {
         $db = new Database('promocoes');
         return $db->select($where, $order, $limit)->fetchAll(PDO::FETCH_ASSOC);
     }
+   // Buscar somente promoções ativas
+    public static function buscarAtivas(): array {
+        return self::buscar('status_produto = 1', 'id_promocao DESC');
+    }
+    // Buscar somente promoções inativas
+    public static function buscarInativas(): array {
+        return self::buscar('status_produto = 0', 'id_promocao DESC');
+    }
+
+    
+
 }

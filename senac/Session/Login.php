@@ -24,9 +24,9 @@ class Login {
         self::init();
         $_SESSION['administrador'] = [
             'id_administrador' => $object->id_administrador,
-            'email' => $object->id_usuario,
+            'email' => $object->id_administrador,
         ];
-        header('location: ../../Pages/adm/perfil_adm.php');
+        header('location: ../../Adm/View/gerenciamento.php');
         exit;
         
     }
@@ -57,7 +57,7 @@ class Login {
         }
 
         if (self::IsLogedAdm()) {
-            header('location: ../../Pages/adm/perfil_adm.php');
+            header('location: ../../Adm/View/gerenciamento.php');
             exit;
         }
     }

@@ -40,8 +40,6 @@ if(isset($_POST['cadastrar'])){
 }
 
 
-
-
 ?> 
 
 

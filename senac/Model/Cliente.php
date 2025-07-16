@@ -27,12 +27,7 @@ class Cliente{
         return $res_id;
     }
 
-    
-    // public static function getClienteByUsuarioId($id_usuario) {
-    //     $db = new Database('usuarios');
-    //     $result = $db->select("usuario = $id_usuario");
-    //     return $result->fetchObject(self::class);
-    // }
+
 
     public static function getClienteByUsuarioId($id_usuario) {
     $db = new Database('usuarios');
@@ -48,24 +43,13 @@ class Cliente{
 
     }
 
-    // Função que retorna uma instâcia de usuario com base no email
+
 
     public static function getUsuarioPorEmail($where=null, $order =null, $limit = null){
 
         return (new Database('usuarios'))->select('telefone = "'. $where .'"')->fetchObject(self::class);
 
     }
-
-
-    // QUANDO EU QUERO RETORNAR UM OBJETO "CLASSE" PARA INSTANCIAR 
-    // public static function getUsuarioPorEmail($where=null, $order =null, $limit = null){
-
-    //     return (new Database('cliente'))->select('email = "'. $where .'"')->fetchObject(self::class);
-
-    // }
-
-
-
 
 
     public function atualizarCliente() {

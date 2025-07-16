@@ -119,3 +119,24 @@ html,
   margin: 0 auto 24px auto;
   object-fit: contain;
 }
+
+
+     .botoes-acesso {
+      display: block;
+      width: 100%;
+      padding: 12px;
+      border: none;
+      border-radius: 8px;
+      background: white;
+      color: black;
+      font-weight: 600;
+      text-align: center;
+      text-decoration: none;
+      transition: 0.25s;
+      margin-bottom: 10px;
+    }
+
+    .botoes-acesso:hover {
+      background-color: orangered;
+      filter: brightness(1.1);
+    }

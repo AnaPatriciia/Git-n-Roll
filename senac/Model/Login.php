@@ -55,7 +55,7 @@ class User{
 
     public static function getUsuarioById($id_usuario) {
         $db = new Database('usuarios');
-        $result = $db->select("usuario = '$id_usuario'");
+        $result = $db->select("id_usuario = '$id_usuario'");
         return $result->fetchObject(self::class); 
     }
 
@@ -65,15 +65,6 @@ class User{
 
     }
 
-    // Função que retorna uma instâcia de usuario com base no email
-
-
-    // QUANDO EU QUERO RETORNAR UM OBJETO "CLASSE" PARA INSTANCIAR 
-    // public static function getUsuarioPorEmail($where=null, $order =null, $limit = null){
-
-    //     return (new Database('cliente'))->select('email = "'. $where .'"')->fetchObject(self::class);
-
-    // }
 
 
 

@@ -7,14 +7,18 @@ require_once 'Cliente.php';
 
 class Adm{
 
-    public int $id_usuario;
+    public int $id_administrador;
+
+    
+
+
     
 
     
     
-    public static function getAdmByUsuarioId($id_usuario) {
+    public static function getAdmByUsuarioId($id_administrador) {
         $db = new Database('administrador');
-        $result = $db->select("id_usuario = $id_usuario");
+        $result = $db->select("id_administrador = $id_administrador");
         return $result->fetchObject(self::class);
     }
 

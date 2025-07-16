@@ -67,7 +67,7 @@ if (isset($_POST['logar'])) {
         if (!preg_match('/^\(?\d{2}\)?[\s-]?\d{4,5}-?\d{4}$/', $telefone)) {
             $erro = 'Telefone não é válido';
         } else {
-            $usuario = User::getUsuarioByTelefone($telefone); 
+            $usuario = User::getUsuarioByTelefone($telefone); // Atualize essa função no seu model
 
             if ($usuario) {
                 $idUsuario = $usuario->id_usuario;

@@ -15,104 +15,104 @@ session_start();
 $erro = '';
 $succes = '';
 
-if (isset($_POST['logar'])) {
-    echo "<h3>Entrou no if do botão</h3>";
-
-    if (!empty($_POST['telefone']) && !empty($_POST['senha'])) {
-        $telefone = $_POST['telefone'];
-        $senha = $_POST['senha'];
-
-        echo "<p>Telefone recebido: $telefone</p>";
-        echo "<p>Senha recebida: $senha</p>";
-
-        // 1. Buscar usuário
-        $usuario = User::getUsuarioByTelefone($telefone);
-        if (!$usuario) {
-            die('Usuário não encontrado.');
-        }
-
-        echo "<p>Usuário encontrado: {$usuario->nome} (ID: {$usuario->id_usuario})</p>";
-
-        // 2. Testar senha simples (sem hash por enquanto)
-        if ($senha == $usuario->senha) {
-            echo "<p>Senha confere (sem hash)</p>";
-        } else {
-            die('Senha incorreta.');
-        }
-
-        // 3. Buscar cliente
-        $cliente = Cliente::getClienteByUsuarioId($usuario->id_usuario);
-        if (!$cliente) {
-            die('Cliente não encontrado.');
-        }
-
-        echo "<p>Cliente encontrado. Chamando loginCLiente...</p>";
-
-        // 4. Login
-        Login::loginCLiente($cliente);
-        exit;
-
-    } else {
-        die('Telefone ou senha vazios.');
-    }
-}
-
-
 // if (isset($_POST['logar'])) {
+//     echo "<h3>Entrou no if do botão</h3>";
+
 //     if (!empty($_POST['telefone']) && !empty($_POST['senha'])) {
 //         $telefone = $_POST['telefone'];
 //         $senha = $_POST['senha'];
 
-//         // Validação do formato do telefone
-//         if (!preg_match('/^\(?\d{2}\)?[\s-]?\d{4,5}-?\d{4}$/', $telefone)) {
-//             $erro = 'Telefone não é válido';
-//         } else {
-//             $usuario = User::getUsuarioByEmail($telefone); // Atualize essa função no seu model
+//         echo "<p>Telefone recebido: $telefone</p>";
+//         echo "<p>Senha recebida: $senha</p>";
 
-//             if ($usuario) {
-//                 $idUsuario = $usuario->id_usuario;
-
-//                 if ($usuario->id_perfil == 'adm' && $senha == 'adm') {
-//                     $adm = Adm::getAdmByUsuarioId($idUsuario);
-//                     if ($adm) {
-//                         $adm->id_usuario = $idUsuario;
-//                         $adm->telefone = $usuario->telefone;
-//                         Login::loginAdm($adm);
-//                         exit;
-//                     }
-//                 }
-
-//                 if ($senha == $usuario->senha) {
-//                     $cliente = Cliente::getClienteByUsuarioId($idUsuario);
-//                     if ($cliente) {
-//                         $cliente->telefone = $usuario->telefone;
-//                         Login::loginCLiente($cliente);
-//                         echo '<script>alert("Login bem-sucedido!")</script>';
-//                         exit;
-//                     }
-
-//                     if ($usuario->id_perfil == 'adm') {
-//                         $adm = Adm::getAdmByUsuarioId($idUsuario);
-//                         if ($adm) {
-//                             $adm->id_usuario = $usuario->id_usuario;
-//                             $_SESSION["id_usuario"] = $idUsuario;
-//                             Login::loginAdm($adm);
-//                             exit;
-//                         }
-//                     }
-
-//                     $erro = 'Usuário não possui perfil (adm ou cliente).';
-//                 } else {
-//                     $erro = 'Telefone ou senha incorretos.';
-//                 }
-//             } else {
-//                 $erro = 'Usuário não encontrado.';
-//             }
+//         // 1. Buscar usuário
+//         $usuario = User::getUsuarioByTelefone($telefone);
+//         if (!$usuario) {
+//             die('Usuário não encontrado.');
 //         }
+
+//         // echo "<p>Usuário encontrado: {$usuario->nome} (ID: {$usuario->id_usuario})</p>";
+
+//         // 2. Testar senha simples (sem hash por enquanto)
+//         if ($senha == $usuario->senha) {
+//             echo "<p>Senha confere (sem hash)</p>";
+//         } else {
+//             die('Senha incorreta.');
+//         }
+
+//         // 3. Buscar cliente
+//         $cliente = Cliente::getClienteByUsuarioId($usuario->id_usuario);
+//         if (!$cliente) {
+//             die('Cliente não encontrado.');
+//         }
+
+//         echo "<p>Cliente encontrado. Chamando loginCLiente...</p>";
+
+//         // 4. Login
+//         Login::loginCLiente($cliente);
+//         exit;
+
 //     } else {
-//         $erro = 'Preencha todos os campos.';
+//         die('Telefone ou senha vazios.');
 //     }
 // }
+
+
+if (isset($_POST['logar'])) {
+    if (!empty($_POST['telefone']) && !empty($_POST['senha'])) {
+        $telefone = $_POST['telefone'];
+        $senha = $_POST['senha'];
+
+        // Validação do formato do telefone
+        if (!preg_match('/^\(?\d{2}\)?[\s-]?\d{4,5}-?\d{4}$/', $telefone)) {
+            $erro = 'Telefone não é válido';
+        } else {
+            $usuario = User::getUsuarioByTelefone($telefone); 
+
+            if ($usuario) {
+                $idUsuario = $usuario->id_usuario;
+
+                if ($usuario->id_perfil == 'adm' && $senha == 'adm') {
+                    $adm = Adm::getAdmByUsuarioId($idUsuario);
+                    if ($adm) {
+                        $adm->id_usuario = $idUsuario;
+                        $adm->telefone = $usuario->telefone;
+                        Login::loginAdm($adm);
+                        exit;
+                    }
+                }
+
+                if ($senha == $usuario->senha) {
+                    $cliente = Cliente::getClienteByUsuarioId($idUsuario);
+                    if ($cliente) {
+                        $cliente->telefone = $usuario->telefone;
+                        Login::loginCLiente($cliente);
+                        echo '<script>alert("Login bem-sucedido!")</script>';
+                        exit;
+                    }
+
+                    if ($usuario->id_perfil == 'adm') {
+                        $adm = Adm::getAdmByUsuarioId($idUsuario);
+                        if ($adm) {
+                            $adm->id_usuario = $usuario->id_usuario;
+                            $_SESSION["id_usuario"] = $idUsuario;
+                            Login::loginAdm($adm);
+                            exit;
+                        }
+                    }
+
+                    $erro = 'Usuário não possui perfil (adm ou cliente).';
+                } else {
+                    $erro = 'Telefone ou senha incorretos.';
+                }
+            } else {
+                $erro = 'Usuário não encontrado.';
+            }
+        }
+    } else {
+        $erro = 'Preencha todos os campos.';
+    }
+}
 
 
 

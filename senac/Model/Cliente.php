@@ -17,7 +17,7 @@ class Cliente{
         $db = new Database('usuarios');
         $res_id = $db->insert_LastId(
             [
-                'usuario' => $this->id_usuario,
+                
                 'telefone' => $this->telefone,
                 'senha' => $this->senha,
                 'id_perfil' => $this->id_perfil

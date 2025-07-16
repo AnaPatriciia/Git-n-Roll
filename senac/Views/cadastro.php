@@ -1,7 +1,10 @@
 <?php
 
 
-// require '../../App/config.inc.php';
+
+require_once '../../senac/Model/Login.php';
+require_once '../../senac/Model/Cliente.php';
+
 
 require '../../senac/Session/Login.php';
 
@@ -18,12 +21,10 @@ if(isset($_POST['cadastrar'])){
 
         $telefone  = $_POST['telefone'];
         $senha  = $_POST['senha'];
-       
-
                 $cliente =  new Cliente();
 
                 $cliente->telefone = $telefone;
-                $cliente->senha = password_hash($senha, PASSWORD_DEFAULT);
+                $cliente->senha = $senha;
                 $cliente->id_perfil = "cli";
 
 
@@ -44,10 +45,6 @@ if(isset($_POST['cadastrar'])){
 ?> 
 
 
-
-
-
-
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
@@ -63,11 +60,11 @@ if(isset($_POST['cadastrar'])){
     </div>
     <div class="cadastro-body">
       <h2>Cadastro</h2>
-      <form>
-        <input type="tel" placeholder="Celular">
-        <input type="password" placeholder="Senha">
+      <form method="post">
+        <input type="tel" name='telefone' id="telefone-login" class="form__field" placeholder="Telefone" required>
+         <input autocomplete="off" type="password" name="senha" id="senha-cad" class="form__field" placeholder="Senha" required>
         <input type="password" placeholder="Confirmar Senha">
-        <a href="../Views/buyathome.php" class="botoes-acesso">Cadastrar</a>
+        <button name="cadastrar" class="botoes-acesso">Cadastrar</button>
       </form>
       <div class="tenho-conta">
         <a href="login.html">Já tenho uma conta</a>
@@ -78,4 +75,5 @@ if(isset($_POST['cadastrar'])){
     </div>
   </div>
 </body>
+
 </html>

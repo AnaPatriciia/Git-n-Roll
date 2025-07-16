@@ -16,12 +16,8 @@ class Login {
             'telefone' => $object->telefone
         ];
 
-        echo "Cliente logado com sucesso!";
-var_dump($_SESSION);
-exit;
-
-        // header('location: ../../senac/Views/buyathome.php');
-        // exit;
+         header('location: ../../senac/Views/buyathome.php');
+        exit;
     }
 
     public static function loginAdm($object) {
@@ -48,7 +44,7 @@ exit;
     public static function RequireLogin() {
         self::init();
         if (!self::IsLogedCliente() && !self::IsLogedAdm()) {
-            header('location: ../../senac/Views/buyathome.php');
+            header('location: ../../senac/Views/cadastro.php');
             exit;
         }
     }

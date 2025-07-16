@@ -34,22 +34,21 @@ class User{
 
 
     
-    // Função que lista dados da table de clientes do banco de dados
-//    public static function getUsuarioByTelefone($telefone) {
-//     $db = new Database('usuarios');
-//     $result = $db->select("telefone = '$telefone'");
-
-//      var_dump($result);
-//     $obj = $result->fetchObject(self::class);
-//     var_dump($obj);
-//     return $result->fetchObject(self::class);
-// }
-
-public static function getUsuarioByTelefone($telefone) {
+    //Função que lista dados da table de clientes do banco de dados
+  public static function getUsuarioByTelefone($telefone) {
     $db = new Database('usuarios');
-    $result = $db->selectWithBinds("telefone = :telefone", [':telefone' => $telefone]);
-    return $result->fetchObject(self::class);
+    $result = $db->select("telefone = '$telefone'");
+
+    // Garantir que temos um resultado antes de tentar o fetch
+    if ($result) {
+        $usuario = $result->fetchObject(self::class);  // Retorna o objeto do tipo User
+        return $usuario ?: false;  // Se não encontrou, retorna false
+    }
+
+    return false;  // Caso a consulta falhe ou não retorne resultados
 }
+
+
 
 
 

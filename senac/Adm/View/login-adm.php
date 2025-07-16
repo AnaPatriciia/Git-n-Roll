@@ -55,7 +55,6 @@ if (isset($_POST['logar'])) {
 ?>
 
 
-
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>

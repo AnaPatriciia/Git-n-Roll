@@ -3,72 +3,59 @@ require_once '../../Database/Database.php';
 require_once '../../Model/Login.php';
 require_once '../../Model/Cliente.php';
 require_once '../../Model/Adm.php';
-
+require_once '../../Model/Promocoes.php';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['cadastrar'])) {
-  $tipo = $_POST['tipo_promocao'] ?? '';
+    if (
+        isset($_FILES['imagem_promocao']) &&
+        isset($_POST['promocao_titulo']) &&
+        isset($_POST['promocao_subtitulo']) &&
+        isset($_POST['status_produto']) &&
+        isset($_POST['tipo_promocao'])
+    ) {
+        $arquivo = $_FILES['imagem_promocao'];
+        if ($arquivo['error']) {
+            die("Falha ao enviar a foto.");
+        }
 
-  // upload e validação da imagem (pode criar uma função para reutilizar)
+        $pasta = realpath(__DIR__ . '/../public/uploads') . '/';
+        if (!is_dir($pasta)) {
+            mkdir($pasta, 0777, true);
+        }
 
-  if (
-      isset($_FILES['imagem_promocao']) &&
-      isset($_POST['promocao_titulo']) &&
-      isset($_POST['promocao_subtitulo']) &&
-      isset($_POST['status_produto'])
-  ) {
-      $arquivo = $_FILES['imagem_promocao'];
-      if ($arquivo['error']) {
-          die("Falha ao enviar a foto.");
-      }
+        $nome_foto = $arquivo['name'];
+        $novo_nome = uniqid();
+        $extensao = strtolower(pathinfo($nome_foto, PATHINFO_EXTENSION));
 
-      $pasta = realpath(__DIR__ . '/../public/uploads') . '/';
-      if (!is_dir($pasta)) {
-          mkdir($pasta, 0777, true);
-      }
+        if (!in_array($extensao, ['png', 'jpg', 'jpeg', 'gif', 'webp', 'bmp'])) {
+            die("Falha ao enviar a foto: formato inválido.");
+        }
 
-      $nome_foto = $arquivo['name'];
-      $novo_nome = uniqid();
-      $extensao = strtolower(pathinfo($nome_foto, PATHINFO_EXTENSION));
+        $caminho_completo = $pasta . $novo_nome . '.' . $extensao;
+        $caminho_relativo = 'public/uploads/' . $novo_nome . '.' . $extensao;
 
-      if (!in_array($extensao, ['png', 'jpg', 'jpeg', 'gif', 'webp', 'bmp'])) {
-          die("Falha ao enviar a foto: formato inválido.");
-      }
+        $upload = move_uploaded_file($arquivo['tmp_name'], $caminho_completo);
+        if (!$upload) {
+            die('Erro ao salvar a imagem.');
+        }
 
-      $caminho_completo = $pasta . $novo_nome . '.' . $extensao;
-      $caminho_relativo = 'public/uploads/' . $novo_nome . '.' . $extensao;
+        // Instancia a classe Promocoes (sem subclasses)
+        $promo = new Promocoes();
+        $promo->imagem_promocao = $caminho_relativo;
+        $promo->promocao_titulo = $_POST['promocao_titulo'];
+        $promo->promocao_subtitulo = $_POST['promocao_subtitulo'];
+        $promo->status_produto = (int) $_POST['status_produto'];  // 0 ou 1
+        $promo->tipo_promocao = (int) $_POST['tipo_promocao'];    // 0 = semanal, 1 = sazonal
 
-      $upload = move_uploaded_file($arquivo['tmp_name'], $caminho_completo);
-      if (!$upload) {
-          die('Erro ao salvar a imagem.');
-      }
-
-      // Agora criar objeto promocao de acordo com o tipo
-      $tipo = $_POST['tipo_promocao'] ?? null;
-      if ($tipo === '0') {
-          $promo = new PromocoesSemanal();
-      } elseif ($tipo === '1') {
-          $promo = new PromocoesSazonal();
-      } else {
-          die('Tipo de promoção inválido.');
-      }
-
-      $promo->imagem_promocao = $caminho_relativo;
-      $promo->promocao_titulo = $_POST['promocao_titulo'];
-      $promo->promocao_subtitulo = $_POST['promocao_subtitulo'];
-      $promo->status_produto = (int) $_POST['status_produto'];
-
-      $result = $promo->cadastrar();
-
-      if ($result) {
-          echo '<script>alert("Promoção cadastrada com sucesso!");</script>';
-      } else {
-          echo '<p style="color:red;">Erro ao cadastrar a promoção.</p>';
-      }
-  } else {
-      echo '<p style="color:red;">Preencha todos os campos corretamente.</p>';
-  }
+        if ($promo->cadastrar()) {
+            echo "<script>alert('Promoção cadastrada com sucesso!');</script>";
+        } else {
+            echo "<p style='color:red;'>Erro ao cadastrar promoção.</p>";
+        }
+    } else {
+        echo "<p style='color:red;'>Preencha todos os campos corretamente.</p>";
+    }
 }
-
 ?>
 
 <!DOCTYPE html>

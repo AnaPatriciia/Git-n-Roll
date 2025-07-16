@@ -12,6 +12,7 @@ class Database{
 
 
 
+
     public function __construct($table = null) {
         $this->table = $table;
         $this->conecta();

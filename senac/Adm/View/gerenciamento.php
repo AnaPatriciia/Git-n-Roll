@@ -1,3 +1,70 @@
+<?php
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['cadastrar'])) {
+  $tipo = $_POST['tipo_promocao'] ?? '';
+
+  // upload e validação da imagem (pode criar uma função para reutilizar)
+
+  if (
+      isset($_FILES['imagem_promocao']) &&
+      isset($_POST['promocao_titulo']) &&
+      isset($_POST['promocao_subtitulo']) &&
+      isset($_POST['status_produto'])
+  ) {
+      $arquivo = $_FILES['imagem_promocao'];
+      if ($arquivo['error']) {
+          die("Falha ao enviar a foto.");
+      }
+
+      $pasta = realpath(__DIR__ . '/../public/uploads') . '/';
+      if (!is_dir($pasta)) {
+          mkdir($pasta, 0777, true);
+      }
+
+      $nome_foto = $arquivo['name'];
+      $novo_nome = uniqid();
+      $extensao = strtolower(pathinfo($nome_foto, PATHINFO_EXTENSION));
+
+      if (!in_array($extensao, ['png', 'jpg', 'jpeg', 'gif', 'webp', 'bmp'])) {
+          die("Falha ao enviar a foto: formato inválido.");
+      }
+
+      $caminho_completo = $pasta . $novo_nome . '.' . $extensao;
+      $caminho_relativo = 'public/uploads/' . $novo_nome . '.' . $extensao;
+
+      $upload = move_uploaded_file($arquivo['tmp_name'], $caminho_completo);
+      if (!$upload) {
+          die('Erro ao salvar a imagem.');
+      }
+
+      // Agora criar objeto promocao de acordo com o tipo
+      if ($tipo === 'semanal') {
+          $promo = new PromocoesSemanal();
+      } elseif ($tipo === 'sazonal') {
+          $promo = new PromocoesSazonal();
+      } else {
+          die('Tipo de promoção inválido.');
+      }
+
+      $promo->imagem_promocao = $caminho_relativo;
+      $promo->promocao_titulo = $_POST['promocao_titulo'];
+      $promo->promocao_subtitulo = $_POST['promocao_subtitulo'];
+      $promo->status_produto = (int) $_POST['status_produto'];
+
+      $result = $promo->cadastrar();
+
+      if ($result) {
+          echo '<script>alert("Promoção cadastrada com sucesso!");</script>';
+      } else {
+          echo '<p style="color:red;">Erro ao cadastrar a promoção.</p>';
+      }
+  } else {
+      echo '<p style="color:red;">Preencha todos os campos corretamente.</p>';
+  }
+}
+
+?>
+
+
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
@@ -44,23 +111,51 @@
       <section id="promoAtivas" class="pane">
         <h2 style="margin-bottom:12px">Promoções Ativas</h2>
 
-        <div class="promo-card-upload">
-          <div class="upload-label">Promoção Semanal</div>
-          <label class="fake-upload"><i class="fas fa-upload"></i> Imagem
-            <input type="file" id="sem-img" accept="image/*">
-          </label>
-          <input type="text" id="sem-titulo" placeholder="Título da promoção">
-          <input type="text" id="sem-sub" placeholder="Subtítulo da promoção">
-          <button class="btn-salvar" onclick="salvarSemanal()">Salvar</button>
-          <div id="sem-preview" class="promo-preview"></div>
-        </div>
+        <form method="POST" enctype="multipart/form-data" style="margin-bottom: 40px;">
+          <div class="promo-card-upload">
+            <div class="upload-label">Cadastrar Nova Promoção</div>
 
+            <label class="fake-upload">
+              <i class="fas fa-upload"></i> Imagem
+              <input type="file" name="imagem_promocao" accept="image/*" required>
+            </label>
+
+            <input type="text" name="promocao_titulo" placeholder="Título da promoção" required>
+            <input type="text" name="promocao_subtitulo" placeholder="Subtítulo da promoção" required>
+
+            <select name="status_produto" required>
+              <option value="1">Ativa</option>
+              <option value="0">Inativa</option>
+            </select>
+
+            <button type="submit" name="cadastrar" class="btn-salvar">Salvar</button>
+          </div>
+      </form>
+
+
+      <form method="POST" enctype="multipart/form-data" style="margin-bottom: 40px;">
         <div class="promo-card-upload">
           <div class="upload-label">Promoção Sazonal</div>
-          <div id="saz-inputs"></div>
-          <button class="btn-salvar" onclick="salvarSazonal()">Salvar</button>
-          <div id="saz-preview" class="promo-preview"></div>
+
+          <label class="fake-upload">
+            <i class="fas fa-upload"></i> Imagem
+            <input type="file" name="imagem_promocao" accept="image/*" required>
+          </label>
+
+          <input type="text" name="promocao_titulo" placeholder="Título da promoção" required>
+          <input type="text" name="promocao_subtitulo" placeholder="Subtítulo da promoção" required>
+
+          <select name="status_produto" required>
+            <option value="1">Ativa</option>
+            <option value="0">Inativa</option>
+          </select>
+
+          <button type="submit" name="cadastrar" class="btn-salvar">Salvar</button>
         </div>
+      </form>
+      
+
+
       </section>
 
       <section id="promoInativas" class="pane">

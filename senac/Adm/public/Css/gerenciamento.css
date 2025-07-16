@@ -251,3 +251,10 @@ input[type="text"] {
   max-height: 90%;
   border-radius: 12px;
 }
+    .pane {
+  display: none;
+}
+
+.pane.active {
+  display: block;
+}

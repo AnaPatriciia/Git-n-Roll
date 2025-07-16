@@ -1,8 +1,12 @@
+
+
+
 <?php
 require_once '../../Database/Database.php';
 require_once '../../Model/Login.php';
 require_once '../../Model/Cliente.php';
 require_once '../../Model/Adm.php';
+
 
 ?>
 
@@ -48,32 +52,32 @@ require_once '../../Model/Adm.php';
   </style>
 
   <script>
-   // Função chamada ao clicar no botão "Inativar"
-function inativar(button) {
-  
-  const idUsuario = button.closest('tr').querySelector('td').textContent;  
+    // Função chamada ao clicar no botão "Ativar"
+function reativar(button) {
 
-  console.log("ID do usuário a ser inativado: ", idUsuario);  
+  const idUsuario = button.closest('tr').querySelector('td:nth-child(1)').textContent;  // Ajuste para pegar o id_usuario da primeira célula
 
+  console.log("ID do usuário a ser reativado: ", idUsuario); 
 
+  // Cria o objeto FormData e adiciona o id_usuario
   const formData = new FormData();
-  formData.append('id_usuario', idUsuario);  
+  formData.append('id_usuario', idUsuario); 
 
-  
-  fetch('atualizar_cliente.php', {
+  // Envia a requisição AJAX para o PHP
+  fetch('reativar_cliente.php', {
     method: 'POST',
     body: formData
   })
   .then(response => response.json())
   .then(data => {
     if (data.success) {
-      
-      button.textContent = 'Desativado';
+   
+      button.textContent = 'Ativado';
       button.classList.remove('inativar');
       button.classList.add('ativar');
-      button.setAttribute('onclick', 'reativar(this)');  
+      button.setAttribute('onclick', 'inativar(this)');  
     } else {
-      alert('Ocorreu um erro ao atualizar o status do cliente.');
+      alert(data.message || 'Ocorreu um erro ao atualizar o status do cliente.');
     }
   })
   .catch(error => {
@@ -82,8 +86,8 @@ function inativar(button) {
   });
 }
 
-  </script>
 
+  </script>
 </head>
 <body>
   <div class="admin">
@@ -93,58 +97,58 @@ function inativar(button) {
     </div>
 
     <nav class="admin-nav">
-      <a href="gerenciamento.php" class="active">Clientes Ativos</a>
-      <a href="Clientes-inativos.php">Clientes Inativos</a>
+      <a href="gerenciamento.php" >Clientes Ativos</a>
+      <a href="Clientes-inativos.php" class="active">Clientes Inativos</a>
       <a href="#promoAtivas">Promoções Ativas</a>
       <a href="#promoInativas">Promoções Inativas</a>
     </nav>
 
     <div class="admin-body">
       <section id="ativos" class="pane">
-        <h2 style="margin-bottom:12px">Clientes Ativos</h2>
+        <h2 style="margin-bottom:12px">Clientes Inativos</h2>
         <table>
           <thead>
             <tr>
               <th>Id Cliente</th>
-              <th>Telefone</th>
+              <th>telefone</th>
               <th>Recompensas</th>
               <th>Ação</th>
             </tr>
           </thead>
           <tbody id="tbAtivos">
             <?php
-            function listarClientesAtivos() {
-              $db = new Database();
-              $sql = "
-              SELECT u.id_usuario, u.telefone, c.recompensa
-              FROM usuarios u
-              INNER JOIN checkin_diario c ON u.id_usuario = c.id_usuario
-              WHERE u.ativo = 1";
-              $result = $db->execute($sql);
-              return $result->fetchAll(PDO::FETCH_ASSOC);
-            }
+           function listarClientesAtivos() {
+          $db = new Database();
+          $sql = "
+            SELECT u.id_usuario, u.telefone, c.recompensa
+            FROM usuarios u
+            LEFT JOIN checkin_diario c ON u.id_usuario = c.id_usuario
+            WHERE u.ativo = 0
+          ";
+          $result = $db->execute($sql);
+          return $result->fetchAll(PDO::FETCH_ASSOC);
+}
 
-            $clientes = listarClientesAtivos();
+$clientes = listarClientesAtivos();
 
-            if (!empty($clientes)) {
-              foreach ($clientes as $cliente) {
-                echo "<tr>";
-                echo "<td>{$cliente['id_usuario']}</td>";
-                echo "<td>{$cliente['telefone']}</td>";
-                echo "<td>" . ($cliente['recompensa'] ?? 'Sem Recompensa') . "</td>";
-                
-                echo "<td><button class='btn inativar' onclick='inativar(this)'>Inativar</button></td>";
-                echo "</tr>";
-              }
-            } else {
-              echo "<tr><td colspan='4'>Nenhum cliente ativo encontrado.</td></tr>";
-            }
-            ?>
+if (!empty($clientes)) {
+  foreach ($clientes as $cliente) {
+    echo "<tr>";
+    echo "<td>{$cliente['id_usuario']}</td>";
+     echo "<td>{$cliente['telefone']}</td>";
+    echo "<td>" . ($cliente['recompensa'] ?? 'Sem Recompensa') . "</td>";  
+    echo "<td><button class='btn inativar' onclick='reativar(this)'>Ativar</button></td>";
+    echo "</tr>";
+  }
+} else {
+  echo "<tr><td colspan='3'>Nenhum cliente inativo encontrado.</td></tr>";
+}
+?>
+
           </tbody>
         </table>
       </section>
 
-    </div>
 
     <div class="admin-footer">Gerenciamento Club Buy At Home | Desenvolvido por Git'n'Roll</div>
   </div>

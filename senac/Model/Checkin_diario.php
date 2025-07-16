@@ -1,5 +1,5 @@
 <?php
-// class CheckinDiario {
+
 //     private $conn;
 //     private $id_usuario;
 
@@ -79,13 +79,7 @@ class CheckinDiario {
         return $stmt->get_result()->num_rows > 0;
     }
 
-    // private function ultimoCheckin() {
-    //     $query = "SELECT * FROM checkin_diario WHERE id_usuario = ? ORDER BY data_checkin DESC LIMIT 1";
-    //     $stmt = $this->conn->prepare($query);
-    //     $stmt->bind_param("i", $this->id_usuario);
-    //     $stmt->execute();
-    //     return $stmt->get_result()->fetch_assoc();
-    // }
+
 
     public function ultimoCheckin() {
     $query = "SELECT data_checkin, dia_sequencia FROM checkin_diario WHERE id_usuario = ? ORDER BY data_checkin DESC LIMIT 1";
@@ -148,75 +142,7 @@ public function registrarCheckin(): array {
     return $result['total_moedas'] ?? 0;
 }
 
-// public function registrarCheckinSimulado(string $data_simulada): array {
-//     // Impede duplicação de check-in nessa data simulada
-//     $queryCheck = "SELECT 1 FROM checkin_diario WHERE id_usuario = ? AND data_checkin = ?";
-//     $stmtCheck = $this->conn->prepare($queryCheck);
-//     $stmtCheck->bind_param("is", $this->id_usuario, $data_simulada);
-//     $stmtCheck->execute();
-//     if ($stmtCheck->get_result()->num_rows > 0) {
-//         return ['status' => 'erro', 'mensagem' => "Já existe check-in no dia $data_simulada"];
-//     }
 
-//     // Verifica o último check-in anterior à data simulada
-//     $query = "SELECT data_checkin, dia_sequencia FROM checkin_diario 
-//               WHERE id_usuario = ? AND data_checkin < ? 
-//               ORDER BY data_checkin DESC LIMIT 1";
-//     $stmt = $this->conn->prepare($query);
-//     $stmt->bind_param("is", $this->id_usuario, $data_simulada);
-//     $stmt->execute();
-//     $result = $stmt->get_result();
-//     $ultimo = $result->fetch_assoc();
-
-//     $dia = 1;
-//     if ($ultimo) {
-//         $data_ultima = $ultimo['data_checkin'];
-//         $dia_sequencia = $ultimo['dia_sequencia'];
-//         $ontem = date('Y-m-d', strtotime($data_simulada . ' -1 day'));
-
-//         if ($data_ultima === $ontem) {
-//             $dia = $dia_sequencia + 1;
-//         } else {
-//             $dia = 1;
-//         }
-//     }
-
-//     $recompensa = 1;
-
-//     $insert = "INSERT INTO checkin_diario (id_usuario, data_checkin, dia_sequencia, recompensa)
-//                VALUES (?, ?, ?, ?)";
-//     $stmtInsert = $this->conn->prepare($insert);
-//     $stmtInsert->bind_param("isii", $this->id_usuario, $data_simulada, $dia, $recompensa);
-
-//     if ($stmtInsert->execute()) {
-//         return ['status' => 'ok', 'mensagem' => "Check-in simulado do dia {$data_simulada} registrado com sucesso!"];
-//     } else {
-//         return ['status' => 'erro', 'mensagem' => 'Erro ao salvar check-in simulado.'];
-//     }
-// }
-
-// public function calcularDiaParaData($data): int {
-//     $query = "SELECT data_checkin, dia_sequencia FROM checkin_diario 
-//               WHERE id_usuario = ? AND data_checkin < ? 
-//               ORDER BY data_checkin DESC LIMIT 1";
-//     $stmt = $this->conn->prepare($query);
-//     $stmt->bind_param("is", $this->id_usuario, $data);
-//     $stmt->execute();
-//     $result = $stmt->get_result();
-//     $anterior = $result->fetch_assoc();
-
-//     if (!$anterior) {
-//         return 1;
-//     }
-
-//     $ontem = date('Y-m-d', strtotime($data . ' -1 day'));
-
-//     if ($anterior['data_checkin'] === $ontem) {
-//         return $anterior['dia_sequencia'] + 1;
-//     } else {
-//         return 1;
-//     }
-// }
 
 }
 

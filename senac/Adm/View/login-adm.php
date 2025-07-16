@@ -71,7 +71,6 @@ if (isset($_POST['logar'])) {
     <div class="login-adm-body">
       <h2>Login Administrativo</h2>
       <form action="login-adm.php" method="post">
-        <!-- <input type="text" name='email' id="email-login" class="form__field" placeholder="E-mail" required> -->
          <input type="tel" name='telefone' id="telefone-login" class="form__field" placeholder="Matrícula" required>
         <input type="password" name='senha' id="senha-login"  class="form__field" placeholder="Senha" required>
         <button class="botoes-acesso" name="logar" value="Entrar" type="submit">Entrar</button>

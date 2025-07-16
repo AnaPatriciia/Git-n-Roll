@@ -1,7 +1,7 @@
 	<?php
 
 
-clASs Database{
+class Database{
 
     public $conection;
     public string $local = 'localhost';
@@ -138,55 +138,7 @@ clASs Database{
         return $this->execute($query,array_values($values));
     }
 
-    public function select_perfil($id_cli){
-
-        // COM FIELDS NA FUNÇÃO SELECT COMO PARAMENTRO = "$fields = '*'
-        $query = 'SELECT usuario.nome,cliente.sobrenome,usuario.email,cliente.cpf,usuario.foto_perfil,cliente.cep,cliente.telefone,cliente.numero_casa,cliente.rua,cliente.bairro,cliente.cidade,cliente.estado, usuario.id_usuario
-        from cliente inner join usuario
-        on usuario.id_usuario = cliente.id_usuario
-        and cliente.id_cliente = '.$id_cli;
-
-        return $this->execute($query);
-        
-    }
-
-    public function select_pedido(){
-        $query = "SELECT pedido.id_pedido AS ID, sacola.valor_total AS Valor, pedido.tipo AS Tipo,  cliente.estado AS UF FROM pedido 
-        JOIN sacola ON pedido.sacola_id_sacola = sacola.id_sacola
-        JOIN cliente ON sacola.cliente_id_cliente = cliente.id_cliente";
-
-        return $result = $this->execute($query)->fetchAll(PDO::FETCH_ASSOC);
-    }
-
-    public function select_by_id($id){
-        $query = "SELECT 
-                    produto.nome AS nome_produto, 
-                    produto.quantidade AS quantidade, 
-                    produto.cor AS cor, 
-                    produto.imagem AS imagem,
-                    sacola.valor_total AS valor_total, 
-                    pedido.codigo_rastreio AS rastreio, 
-                    pedido.status_pedido AS status_pedido,
-                    cliente.telefone AS contato, 
-                    cliente.cep AS cep, 
-                    cliente.rua AS rua, 
-                    cliente.numero_casa AS numero, 
-                    cliente.bairro AS bairro,
-                    cliente.cidade AS cidade, 
-                    cliente.estado AS estado, 
-                    usuario.nome AS nome_cliente, 
-                    cliente.sobrenome AS sobrenome
-                FROM produto 
-                JOIN sacola ON produto.id_produto = sacola.produto_id_produto 
-                JOIN pedido ON sacola.produto_id_produto = pedido.sacola_produto_id_produto 
-                JOIN cliente ON pedido.sacola_cliente_id_cliente = cliente.id_cliente 
-                JOIN usuario ON cliente.id_usuario = usuario.id_usuario
-                WHERE pedido.id_pedido = ?";
-    
-        $stmt = $this->execute($query, [$id]);
-    
-        return $stmt;
-    }
+ 
 
 
 
@@ -199,6 +151,26 @@ public function selectWithBinds($where = null, $binds = [], $order = null, $limi
 
     return $this->execute($query, $binds);
 }
+
+function listarClientesAtivos() {
+    // Cria instância da classe Database (não precisa passar a tabela, pois faremos JOIN)
+    $db = new Database();
+
+    // Query SQL para buscar id_usuario e recompensa
+    $sql = "
+        SELECT u.id_usuario, c.recompensa
+        FROM usuarios u
+        INNER JOIN checkin_diario c ON u.id_usuario = c.id_usuario
+        WHERE u.ativo = 1
+    ";
+
+    // Executa a query usando o método da classe
+    $result = $db->execute($sql);
+
+    // Retorna todos os resultados como array associativo
+    return $result->fetchAll(PDO::FETCH_ASSOC);
+}
+
 
 }
 

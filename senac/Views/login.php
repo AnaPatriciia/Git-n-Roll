@@ -135,10 +135,10 @@ if (isset($_POST['logar'])) {
 <body-login>
   <div class="login">
     <div class="login-header">
-      <img src="../Imagens/logo_club.png" alt="Logo">
+      <img src="../public/Imagens/logo_club.png" alt="Logo">
     </div>
     <div class="login-body">
-         <img class="onboarding_login" src="../Imagens/onboarding_login.png" alt="">
+         <img class="onboarding_login" src="../public/Imagens/onboarding_login.png" alt="">
       <h2>Login</h2>
       <form action="login.php" method="post">
         <input type="tel" name='telefone' id="telefone-login" class="form__field" placeholder="Telefone" required>
@@ -147,11 +147,15 @@ if (isset($_POST['logar'])) {
        <button id="botoes-acesso" name="logar" value="Entrar" type="submit">Entrar</button>
 
       <div class="esqueci-senha">
-      <a href="esqueci-senha.html">Esqueci minha Senha</a>
+      <a href="esqueci-senha.php">Esqueci minha Senha</a><br>
+      <br>
+      <a href="../Adm/View/login-adm.php">Acesso Corporativo</a>
+
     </div>
+    
     </div>
     <div class="login-footer">
-      Não tem conta? <a href="cadastro.html">Cadastre-se</a>
+      Não tem conta? <a href="cadastro.php">Cadastre-se</a>
     </div>
   </div>
 </body>

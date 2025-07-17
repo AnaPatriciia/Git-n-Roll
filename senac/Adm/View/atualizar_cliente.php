@@ -1,5 +1,9 @@
 <?php
 require_once '../../Database/Database.php';
+require_once '../../Session/Login.php';
+
+
+
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     // Recebe o id_usuario via POST

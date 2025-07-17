@@ -1,8 +1,5 @@
 <?php
 
-
-
-
 require_once '../../Model/Login.php';
 require_once '../../Model/Cliente.php';
 require_once '../..//Model/Adm.php';
@@ -11,13 +8,15 @@ require_once '../..//Model/Adm.php';
 require '../../Session/Login.php';
 
 
+
 session_start();
 
 $erro = '';
 $succes = '';
 
-
-
+echo "<pre>";
+var_dump($_POST);
+echo "</pre>";
 
 if (isset($_POST['logar'])) {
 
@@ -80,7 +79,7 @@ if (isset($_POST['logar'])) {
       </div> -->
     </div>
     <div class="login-adm-footer">
-      Você é cliente? Acesse aqui
+      Você é Cliente? <a href="../../Views/login.php">Acesse aqui</a>
     </div>
   </div>
 </body>

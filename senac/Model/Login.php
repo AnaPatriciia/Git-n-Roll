@@ -18,20 +18,36 @@ class User{
 
 
   
-    public function cadastrarUser(){
-        $db = new Database('usuarios');
+    // public function cadastrarUser(){
+    //     $db = new Database('usuarios');
 
-        $result = $db->insert(
-            [
-                'usuario'=> $this->id_usuario,
-                'telefone'=> $this->telefone,
-                'senha' => $this->senha,
-                'id_perfil' => $this->id_perfil,
-            ]
-            );
-        return $result;
-    }
+    //     $result = $db->insert(
+    //         [
+    //             'usuario'=> $this->id_usuario,
+    //             'telefone'=> $this->telefone,
+    //             'senha' => $this->senha,
+    //             'id_perfil' => $this->id_perfil,
+    //         ]
+    //         );
+    //     return $result;
+    // }
 
+    public function cadastrarUser() {
+    $db = new Database('usuarios');
+
+    // Cria o hash seguro da senha
+    $senhaHash = password_hash($this->senha, PASSWORD_DEFAULT);
+
+    // Insere os dados no banco
+    $result = $db->insert([
+        'usuario'    => $this->id_usuario,
+        'telefone'   => $this->telefone,
+        'senha'      => $senhaHash, // usa o hash aqui
+        'id_perfil'  => $this->id_perfil,
+    ]);
+
+    return $result;
+}
 
     
     //Função que lista dados da table de clientes do banco de dados

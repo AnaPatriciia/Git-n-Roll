@@ -45,6 +45,7 @@ if (!$dados) {
       </div>
 
       <button type="submit" name="salvar">Salvar alterações</button>
+       <button class="logout-btn" onclick="location.href='gerenciamento-adm.php'">Voltar</button>
       
     </form>
   </div>

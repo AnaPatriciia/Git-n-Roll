@@ -187,9 +187,34 @@ public function updatePromo(array $values, string $where): bool {
     return $stmt ? true : false;
 }
 
-
+public function selectCustomQuery($sql, $params = [])
+{
+    try {
+        $stmt = $this->execute($sql, $params);
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    } catch (PDOException $e) {
+        die("Erro na consulta personalizada: " . $e->getMessage());
+    }
 }
 
 
+// public function buscarMoedasPorUsuario(int $id_usuario): int
+// {
+//     $sql = "SELECT moedas FROM usuarios WHERE id_usuario = ?";
+//     $stmt = $this->execute($sql, [$id_usuario]);
+//     $resultado = $stmt->fetch(PDO::FETCH_ASSOC);
+
+//     return $resultado ? (int) $resultado['moedas'] : 0;
+// }
+
+
+ public function buscarMoedasPorUsuario(int $id_usuario): int
+{
+    $sql = "SELECT SUM(recompensa) AS total_moedas FROM checkin_diario WHERE id_usuario = :id";
+    $stmt = $this->execute($sql, [':id' => $id_usuario]);
+    $resultado = $stmt->fetch(PDO::FETCH_ASSOC);
+    return $resultado['total_moedas'] !== null ? (int)$resultado['total_moedas'] : 0;
+}
+}
 ?>
 

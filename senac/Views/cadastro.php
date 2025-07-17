@@ -1,43 +1,13 @@
 <?php
 
-
-
 require_once '../../senac/Model/Login.php';
 require_once '../../senac/Model/Cliente.php';
-
-
 require '../../senac/Session/Login.php';
 
 Login::RequireLogout();
 
-
 $erro = '';
-$succes ='';
-
-// if(isset($_POST['cadastrar'])){
-
-
-//     if(!empty($_POST['telefone']) || !empty($_POST['senha'])){
-
-//         $telefone  = $_POST['telefone'];
-//         $senha  = $_POST['senha'];
-//                 $cliente =  new Cliente();
-
-//                 $cliente->telefone = $telefone;
-//                 $cliente->senha = $senha;
-//                 $cliente->id_perfil = "cli";
-
-
-
-//                 $cliente->cadastrarCliente();
-
-//                 if($cliente){
-//                     $succes='Cadastro realizado com successo';
-//                 }else{
-//                     $erro='Erro ao cadastrar';
-//                 }
-//     };
-// }
+$succes = '';
 
 if (isset($_POST['cadastrar'])) {
 
@@ -51,7 +21,6 @@ if (isset($_POST['cadastrar'])) {
         $cliente->senha      = $senha;
         $cliente->id_perfil  = "cli";
 
-        // Chama o método que já faz o hash da senha
         $result = $cliente->cadastrarCliente();
 
         if ($result) {
@@ -65,9 +34,7 @@ if (isset($_POST['cadastrar'])) {
     }
 }
 
-
-?> 
-
+?>
 
 <!DOCTYPE html>
 <html lang="pt-br">
@@ -86,7 +53,7 @@ if (isset($_POST['cadastrar'])) {
       <h2>Cadastro</h2>
       <form method="post">
         <input type="tel" name='telefone' id="telefone-login" class="form__field" placeholder="Telefone" required>
-         <input autocomplete="off" type="password" name="senha" id="senha-cad" class="form__field" placeholder="Senha" required>
+        <input autocomplete="off" type="password" name="senha" id="senha-cad" class="form__field" placeholder="Senha" required>
         <input type="password" placeholder="Confirmar Senha">
         <button name="cadastrar" class="botoes-acesso">Cadastrar</button>
       </form>
@@ -98,6 +65,16 @@ if (isset($_POST['cadastrar'])) {
       Ao se cadastrar, você aceita os <a href="#">termos de uso</a>.
     </div>
   </div>
-</body>
 
+  <?php if (!empty($succes)) : ?>
+    <script>
+      alert("<?= $succes ?>");
+      window.location.href = "login.php"; // redireciona se sucesso
+    </script>
+  <?php elseif (!empty($erro)) : ?>
+    <script>
+      alert("<?= $erro ?>");
+    </script>
+  <?php endif; ?>
+</body>
 </html>

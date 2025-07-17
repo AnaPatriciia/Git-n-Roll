@@ -33,7 +33,7 @@
       </div>
 
        <div class="acesso-corporativo">
-        <a href="../Adm/View/login-adm.html">Acesso Corporativo</a>
+        <a href="../Adm/View/login-adm.php">Acesso Corporativo</a>
       </div>
     </div>
 

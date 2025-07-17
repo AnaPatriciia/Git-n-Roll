@@ -1,3 +1,32 @@
+
+<?php
+session_start(); 
+require_once '../../senac/Database/Database.php';
+require_once '../../senac/Session/Login.php';
+require_once '../../senac/Model/Cliente.php';
+
+$db = new Database();
+
+Login::init(); // inicia a sessão, se ainda não tiver sido iniciada
+$id_usuario = $_SESSION['usuarios']['id_usuario'] ?? null;
+
+if (!$id_usuario) {
+    // Redireciona se não estiver logado corretamente
+    header("Location: login.php");
+    exit;
+}
+
+$moedas = $db->buscarMoedasPorUsuario($id_usuario);
+
+$sql = "SELECT SUM(recompensa) AS total FROM checkin_diario WHERE id_usuario = :id";
+$params = [':id' => $id_usuario];
+
+$result = $db->selectCustomQuery($sql, $params);
+$total = $result[0]['total'] ?? 0;
+
+?>
+
+
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
@@ -125,6 +154,26 @@
       display: block;
     }
 
+    .botoes-acesso {
+      display: block;
+      width: 100%;
+      padding: 12px;
+      border: none;
+      border-radius: 8px;
+      background: black;
+      color: white;
+      font-weight: 600;
+      text-align: center;
+      text-decoration: none;
+      transition: 0.25s;
+      margin-bottom: 10px;
+    }
+
+    .botoes-acesso:hover {
+      background-color: orangered;
+      filter: brightness(1.1);
+    }
+
     @media (max-width: 480px) {
       .resgate-container {
         padding: 20px 16px;
@@ -137,6 +186,7 @@
       .resgatar-btn {
         font-size: 15px;
       }
+      
     }
   </style>
 </head>
@@ -144,7 +194,9 @@
   <div class="resgate-container">
     <div class="resgate-header">
       <h2><i class="fa-solid fa-gift"></i> Resgatar Pontos</h2>
-      <div class="moedas"><i class="fa-solid fa-coins"></i> <span id="moeda-count">120</span> moedas</div>
+      <div class="moedas"><i class="fa-solid fa-coins"></i> <span id="moeda-count"><?= htmlspecialchars($moedas) ?></span> moedas</div>
+
+
     </div>
 
     <button class="resgatar-btn" id="btn-resgatar"><i class="fa-solid fa-arrow-rotate-right"></i> Resgatar moedas</button>
@@ -165,34 +217,53 @@
         <h3>15% OFF</h3>
         <span>Requer 150 moedas</span>
       </div>
+      <div class="voltar-container">
+      <a href="buyathome.php" class="botoes-acesso">
+        </i> Voltar
+      </a>
+    </div>
     </div>
   </div>
 
   <script>
-    const moedas = 120; // Exemplo: valor acumulado
-    const btnResgatar = document.getElementById('btn-resgatar');
-    const cupons = document.querySelectorAll('.cupom');
 
-    btnResgatar.addEventListener('click', () => {
-      cupons.forEach(cupom => {
-        const necessario = parseInt(cupom.dataset.requisito);
-        if (moedas >= necessario) {
-          cupom.classList.add('desbloqueado');
-        }
-      });
-    });
+  const moedas = parseInt(document.getElementById('moeda-count').innerText);
+  const cupons = document.querySelectorAll('.cupom');
 
+  function desbloquearCupons() {
     cupons.forEach(cupom => {
-      cupom.addEventListener('click', () => {
-        if (cupom.classList.contains('desbloqueado')) {
-          const valor = cupom.querySelector('h3').innerText;
-          alert(`✅ Cupom ${valor} resgatado com sucesso!`);
-        }
-      });
+      const necessario = parseInt(cupom.dataset.requisito);
+      if (moedas >= necessario) {
+        cupom.classList.add('desbloqueado');
+        cupom.addEventListener('click', () => resgatarCupom(cupom, necessario));
+      }
     });
+  }
 
-    // Atualiza a contagem
-    document.getElementById('moeda-count').innerText = moedas;
+  function resgatarCupom(cupom, custo) {
+    if (cupom.classList.contains('desbloqueado')) {
+      const confirmar = confirm(`Deseja resgatar este cupom por ${custo} moedas?`);
+      if (!confirmar) return;
+
+      fetch('resgatar_cupom.php', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded'
+        },
+        body: `custo=${custo}`
+      })
+      .then(res => res.text())
+      .then(data => {
+        alert(data);
+        location.reload(); // atualiza moedas na tela
+      });
+    }
+  }
+
+  // Inicializa
+  desbloquearCupons();
+</script>
+
   </script>
 </body>
 </html>

@@ -117,8 +117,8 @@ $total_moedas = getTotalMoedas($conn, $id_usuario);
   <div class="mini-menu">
     <button class="menu-toggle"><i class="fa-solid fa-bars"></i></button>
     <ul class="menu-opcoes">
-      <li><a href="resgatar.html">Resgatar meus pontos</a></li>
-      <li><a href="logout.html">Sair</a></li>
+      <li><a href="resgatar-moedas.php">Resgatar meus pontos</a></li>
+      <li><a href="login.php">Sair</a></li>
     </ul>
   </div>
 </div>

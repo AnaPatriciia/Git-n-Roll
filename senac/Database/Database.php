@@ -7,7 +7,7 @@ class Database{
     public string $local = 'localhost';
     public string $db = 'sistema_usuarios';
     public string $user = 'root';
-    public string $password = 'senac';
+    public string $password = '';
     public $table;
 
 

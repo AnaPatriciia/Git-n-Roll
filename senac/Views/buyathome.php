@@ -12,7 +12,7 @@ if (!isset($_SESSION['usuarios']['id_usuario'])) {
     exit;
 }
 
-$conn = new mysqli("localhost", "root", "senac", "sistema_usuarios");
+$conn = new mysqli("localhost", "root", "", "sistema_usuarios");
 
 if ($conn->connect_error) {
     die('Erro ao conectar com o banco de dados.');
@@ -197,14 +197,11 @@ $total_moedas = getTotalMoedas($conn, $id_usuario);
     </div>
 
     <div class="catalogo-promocoes">
-      <a href="promocoes.html" class="promo-card">
+      <a href="promocoes.php" class="promo-card">
         <i class="fa-solid fa-percent"></i>
         <span>Promoções da semana</span>
       </a>
-      <a href="promocoes_sazonal.html" class="promo-card">
-        <i class="fa-solid fa-calendar-days"></i>
-        <span>Hoje é dia de...</span>
-      </a>
+    
     </div>
 
   </div>

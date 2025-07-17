@@ -93,19 +93,20 @@ function reativar(button) {
   <div class="admin">
     <div class="admin-header">
       <img src="../../public/Imagens/logo_club.png" alt="Logo">
-      <button class="logout-btn" onclick="location.href='login.html'">Sair</button>
+      <button class="logout-btn" onclick="location.href='login-adm.php'">Sair</button>
     </div>
 
     <nav class="admin-nav">
       <a href="gerenciamento.php" >Clientes Ativos</a>
       <a href="Clientes-inativos.php" class="active">Clientes Inativos</a>
-      <a href="#promoAtivas">Promoções Ativas</a>
-      <a href="#promoInativas">Promoções Inativas</a>
+      <a href="promocoes-on.php">Promoções On</a>
+      <a href="promocoes-off.php">Promoções Off</a>
     </nav>
 
     <div class="admin-body">
       <section id="ativos" class="pane">
         <h2 style="margin-bottom:12px">Clientes Inativos</h2>
+        <br>
         <table>
           <thead>
             <tr>

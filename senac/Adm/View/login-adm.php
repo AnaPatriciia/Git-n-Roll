@@ -66,7 +66,7 @@ if (isset($_POST['logar'])) {
 <body class="login-adm-body">
   <div class="login-adm">
     <div class="login-adm-header">
-      <img src="../../Imagens/logo_club.png" alt="Logo">
+      <img src="../../public/Imagens/logo_club.png" alt="Logo">
     </div>
     <div class="login-adm-body">
       <h2>Login Administrativo</h2>

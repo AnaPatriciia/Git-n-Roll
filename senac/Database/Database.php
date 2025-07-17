@@ -7,7 +7,7 @@ class Database{
     public string $local = 'localhost';
     public string $db = 'sistema_usuarios';
     public string $user = 'root';
-    public string $password = '';
+    public string $password = 'senac';
     public $table;
 
 
@@ -170,6 +170,21 @@ function listarClientesAtivos() {
 
     // Retorna todos os resultados como array associativo
     return $result->fetchAll(PDO::FETCH_ASSOC);
+}
+
+public function updatePromo(array $values, string $where): bool {
+    // Monta os SETs
+    $fields = array_keys($values);
+    $set = implode('=?, ', $fields) . '=?';
+
+    // Cria a query
+    $query = 'UPDATE ' . $this->table . ' SET ' . $set . ' WHERE ' . $where;
+
+    // Executa
+    $stmt = $this->execute($query, array_values($values));
+
+    // Verifica se a execução teve sucesso e retorna true/false
+    return $stmt ? true : false;
 }
 
 

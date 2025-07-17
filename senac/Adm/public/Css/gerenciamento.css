@@ -9,7 +9,9 @@ html,
 body {
   height: 100%;
   background: #eef0f4;
+  overflow-x: hidden;
 }
+
 
 body {
   display: flex;
@@ -116,6 +118,11 @@ th {
 
 .btn.inativar {
   background: #ff5c5c;
+  color: #fff;
+}
+
+.btn editar {
+  background: black;
   color: #fff;
 }
 

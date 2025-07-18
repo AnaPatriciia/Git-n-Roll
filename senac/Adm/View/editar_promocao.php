@@ -26,6 +26,11 @@ if (!$dados) {
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
 </head>
 <body>
+  <div class="admin">
+  <div class="admin-header">
+    <img src="../../public/Imagens/logo_club.png" alt="Logo">
+    <button class="logout-btn" onclick="location.href='login-adm.php'">Sair</button>
+  </div>
  
   <div class="editar-promocao-container">
      <h1>Editar Promoção</h1>
@@ -40,12 +45,14 @@ if (!$dados) {
 
       <label>Imagem:</label>
       <div class="file-upload">
-        <i class="fa-solid fa-image"></i>
-        <input type="file" name="imagem_promocao">
-      </div>
+        <label for="imagem_promocao" class="upload-label">
+          <i class="fa-solid fa-upload"></i>
+         </label>
+            <input type="file" id="imagem_promocao" name="imagem_promocao" />
+        </div>
 
       <button type="submit" name="salvar">Salvar alterações</button>
-       <button class="logout-btn" onclick="location.href='gerenciamento-adm.php'">Voltar</button>
+       <button type="button" class="logout" onclick="window.location.href='gerenciamento.php'">Voltar</button>
       
     </form>
   </div>
